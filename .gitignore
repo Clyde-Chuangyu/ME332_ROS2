@@ -4,3 +4,4 @@ log/
 .vscode/
 __pycache__/
 *.pyc
+src/IFRA_LinkAttacher/
