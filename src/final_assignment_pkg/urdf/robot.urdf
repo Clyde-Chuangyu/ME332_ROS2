@@ -1,0 +1,228 @@
+<?xml version="1.0" ?>
+<robot name="my_mobile_manipulator">
+
+  <link name="base_footprint"/>
+  
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0.04"/>
+  </joint>
+
+  <link name="base_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.04"/>
+      <geometry>
+        <cylinder length="0.08" radius="0.12"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.04"/>
+      <geometry>
+        <cylinder length="0.08" radius="0.12"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="left_wheel">
+    <visual>
+      <geometry><cylinder length="0.02" radius="0.035"/></geometry>
+    </visual>
+    <collision>
+      <geometry><cylinder length="0.02" radius="0.035"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel"/>
+    <origin rpy="0 0 0" xyz="0 0.095 0.0175"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="right_wheel">
+    <visual>
+      <geometry><cylinder length="0.02" radius="0.035"/></geometry>
+    </visual>
+    <collision>
+      <geometry><cylinder length="0.02" radius="0.035"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel"/>
+    <origin rpy="0 0 0" xyz="0 -0.095 0.0175"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="front_caster">
+    <visual><geometry><sphere radius="0.015"/></geometry></visual>
+    <collision><geometry><sphere radius="0.015"/></geometry></collision>
+  </link>
+  <joint name="front_caster_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="front_caster"/>
+    <origin rpy="0 0 0" xyz="0.1 0 0"/>
+  </joint>
+
+  <link name="back_caster">
+    <visual><geometry><sphere radius="0.015"/></geometry></visual>
+    <collision><geometry><sphere radius="0.015"/></geometry></collision>
+  </link>
+  <joint name="back_caster_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="back_caster"/>
+    <origin rpy="0 0 0" xyz="-0.1 0 0"/>
+  </joint>
+
+  <link name="arm_base_link">
+    <visual>
+      <geometry><cylinder length="0.04" radius="0.03"/></geometry>
+      <material name="red"><color rgba="0.8 0 0 1"/></material>
+    </visual>
+    <collision>
+      <geometry><cylinder length="0.04" radius="0.03"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="arm_joint_1" type="revolute">
+    <parent link="base_link"/>
+    <child link="arm_base_link"/>
+    <origin rpy="0 0 0" xyz="0.05 0 0.08"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="100.0" lower="-1.57" upper="1.57" velocity="1.0"/>
+  </joint>
+
+  <link name="arm_link_1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.075"/>
+      <geometry><box size="0.02 0.02 0.15"/></geometry>
+      <material name="green"><color rgba="0 0.8 0 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.075"/>
+      <geometry><box size="0.02 0.02 0.15"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="arm_joint_2" type="revolute">
+    <parent link="arm_base_link"/>
+    <child link="arm_link_1"/>
+    <origin rpy="0 0 0" xyz="0 0 0.02"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="100.0" lower="-1.57" upper="1.57" velocity="1.0"/>
+  </joint>
+
+  <link name="arm_link_2">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.075"/>
+      <geometry><box size="0.02 0.02 0.15"/></geometry>
+      <material name="yellow"><color rgba="0.8 0.8 0 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.075"/>
+      <geometry><box size="0.02 0.02 0.15"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="arm_joint_3" type="revolute">
+    <parent link="arm_link_1"/>
+    <child link="arm_link_2"/>
+    <origin rpy="0 0 0" xyz="0 0 0.15"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="100.0" lower="-2.0" upper="2.0" velocity="1.0"/>
+  </joint>
+
+  <link name="arm_link_3">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.06"/>
+      <geometry><box size="0.02 0.02 0.12"/></geometry>
+      <material name="cyan"><color rgba="0 0.8 0.8 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.06"/>
+      <geometry><box size="0.02 0.02 0.12"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="arm_joint_4" type="revolute">
+    <parent link="arm_link_2"/>
+    <child link="arm_link_3"/>
+    <origin rpy="0 0 0" xyz="0 0 0.15"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="100.0" lower="-1.57" upper="1.57" velocity="1.0"/>
+  </joint>
+
+  <link name="gripper_base_link">
+    <visual>
+      <geometry><box size="0.02 0.10 0.03"/></geometry>
+      <material name="magenta"><color rgba="0.8 0 0.8 1"/></material>
+    </visual>
+    <collision>
+      <geometry><box size="0.02 0.10 0.03"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="gripper_base_joint" type="fixed">
+    <parent link="arm_link_3"/>
+    <child link="gripper_base_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0.13"/>
+  </joint>
+
+  <link name="gripper_left_finger">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.03"/>
+      <geometry><box size="0.02 0.01 0.06"/></geometry>
+      <material name="grey"><color rgba="0.5 0.5 0.5 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.03"/>
+      <geometry><box size="0.02 0.01 0.06"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="finger_joint_1" type="prismatic">
+    <parent link="gripper_base_link"/>
+    <child link="gripper_left_finger"/>
+    <origin rpy="0 0 0" xyz="0 0.04 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="10.0" lower="-0.04" upper="0.0" velocity="0.5"/>
+  </joint>
+
+  <link name="gripper_right_finger">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.03"/>
+      <geometry><box size="0.02 0.01 0.06"/></geometry>
+      <material name="grey"><color rgba="0.5 0.5 0.5 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.03"/>
+      <geometry><box size="0.02 0.01 0.06"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="finger_joint_2" type="prismatic">
+    <parent link="gripper_base_link"/>
+    <child link="gripper_right_finger"/>
+    <origin rpy="0 0 0" xyz="0 -0.04 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="10.0" lower="0.0" upper="0.04" velocity="0.5"/>
+  </joint>
+
+  <link name="laser_link">
+    <visual><geometry><cylinder length="0.04" radius="0.025"/></geometry></visual>
+    <collision><geometry><cylinder length="0.04" radius="0.025"/></geometry></collision>
+  </link>
+  <joint name="laser_joint" type="fixed"><parent link="base_link"/><child link="laser_link"/><origin xyz="0 0 0.1"/></joint>
+
+  <link name="camera_link">
+    <visual><geometry><box size="0.02 0.08 0.02"/></geometry></visual>
+    <collision><geometry><box size="0.02 0.08 0.02"/></geometry></collision>
+  </link>
+  <joint name="camera_joint" type="fixed"><parent link="base_link"/><child link="camera_link"/><origin xyz="0.12 0 0.06"/></joint>
+
+</robot>
