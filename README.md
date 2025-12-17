@@ -25,6 +25,15 @@ sudo apt install ros-humble-joint-state-publisher-gui
 sudo apt install ros-humble-tf2-ros
 sudo apt install ros-humble-robot-state-publisher
 
+#IFRA_LinkAttacher
+cd ~/proj_ws/src
+git clone https://github.com/IFRA-Cranfield/IFRA_LinkAttacher.git
+cd ~/proj_ws
+rosdep install --from-paths src --ignore-src -r -y
+colcon build --symlink-install
+source install/setup.bash
+
+
 
 # 将 <你的仓库地址> 替换为你实际的 GitHub 地址
 git clone <你的GitHub仓库地址> .
